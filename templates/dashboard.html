@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/all.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <style>
+        .has-details {
+            position: relative;
+          }
+          
+          .details {
+            position: absolute;
+            top: 0;
+            transform: translateY(70%) scale(0);
+            transition: transform 0.1s ease-in;
+            transform-origin: left;
+            display: inline;
+            background: white;
+            z-index: 20;
+            min-width: 100%;
+            padding: 1rem;
+            border: 1px solid black;
+          }
+          
+          .has-details:hover span {
+            transform: translateY(70%) scale(1);
+          }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand"><b>Movie@MarianaTek</b></a>
+                </div>
+            </div>
+                
+        </nav>
+        
+        <!-- Page Content -->
+        <div>
+            <form method="GET">
+                <label for="titleid"><b>Title: </b></label>   
+                <input type="search" placeholder="Search by Title" name="searcharea" id="search" class="search" autocomplete="off">
+                <select name="genre" id="genre">
+                    <option value="thriller">Thriller</option>
+                  </select>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <br><br>
+        <div>
+                        
+            <br><br>
+            <table class="table table-striped table-bordered table-sm">  
+                <thead class="thead-dark">  
+                  <tr>
+                    <th>Date</th>
+                    <th>Movie</th>  
+                    <th>Released</th>
+                    <th>Rated</th>
+                    <th>Runtime</th>
+                    <th>Genre</th>
+                  </tr>  
+                </thead>  
+                <tbody>
+                    {% for data in moviedata %}
+                        <tr>
+                            <td rowspan="4">{{data.date}}</td>
+                        </tr>
+                        {% for m in data.movies %}
+                        <tr>
+                            <td class='has-details'><b>{{m.title}}</b>
+                                <span class="details">Director: {{m.director}}<br>Writer: {{m.writer}}<br>Actor: {{m.actors}}<br>imdb_rating: {{m.imdb_rating}}</span>
+                            </td>
+                            <td>{{m.released}}</td>
+                            <td>{{m.rated}}</td>
+                            <td>{{m.runtime}}</td>
+                            <td>{{m.genre}}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    
+
+
+                </tbody>
+            </table>
+
+        
+        </div>
+    </div>
+   
+</body>
+</html>
+
